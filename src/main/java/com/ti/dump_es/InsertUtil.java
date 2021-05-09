@@ -13,10 +13,19 @@ import java.io.IOException;
 public class InsertUtil {
     EsUtil esUtil=new EsUtil();
     RestHighLevelClient client;
-    public boolean insertSample(String jsonStr,RestHighLevelClient client) throws IOException {
+    public boolean insertSample(String md5,String jsonStr,RestHighLevelClient client) throws IOException {
+        System.out.println("md5: "+md5);
+        System.out.println("stix-content: "+jsonStr);
         IndexRequest request=new IndexRequest("myindex");
+        request.id(md5);
         request.source(jsonStr, XContentType.JSON);
-        IndexResponse indexResponse=client.index(request, RequestOptions.DEFAULT);
+        IndexResponse indexResponse= null;
+        try{
+             indexResponse=client.index(request, RequestOptions.DEFAULT);
+        }catch (Exception e){
+            System.out.println(e);
+            System.out.println("duplicated id may cause this exception");
+        }
         System.out.println(indexResponse);
         return true;
     }

@@ -27,7 +27,7 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>com.ti.dump_es.InsertEs</mainClass>
+                  <mainClass>com.ti.dump_es.ConsumeLisa</mainClass>
                 </transformer>
               </transformers>
               <filters>

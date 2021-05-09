@@ -4,6 +4,7 @@ import org.elasticsearch.client.RestHighLevelClient;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public class InsertEs {
     public boolean uploadByDirectory(String stixDirectory,String esUrl) throws IOException {
@@ -13,12 +14,14 @@ public class InsertEs {
         EsUtil esUtil=new EsUtil();
         RestHighLevelClient client=esUtil.getClient(esUrl);
 
-        List<String> strList=readStix.readStixDirectory(stixDirectory);
-        for(String json_str:strList)
+        Map<String,String> strList=readStix.readStixDirectory(stixDirectory);
+
+        for(Map.Entry<String,String> entry:strList.entrySet())
         {
-            insertUtil.insertSample(json_str,client);
+            insertUtil.insertSample(entry.getKey(),entry.getValue(),client);
         }
         client.close();
+        System.out.println("finished dump_es ");
         return true;
     }
 
