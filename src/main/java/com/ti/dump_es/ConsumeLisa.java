@@ -25,7 +25,7 @@ public class ConsumeLisa {
         Properties props = new Properties();
         props.put("bootstrap.servers", url);
         props.put("group.id", "test");
-        props.put("enable.auto.commit", "false");
+        props.put("enable.auto.commit", "true");
         props.put("auto.commit.interval.ms", "1000");
         props.put("auto.offset.reset", "latest");
         props.put("session.timeout.ms", "30000");
